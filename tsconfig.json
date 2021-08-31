@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "removeComments": true,
+    "lib": ["esnext"]
+  },
+  "include": ["src/**/*"]
+}
