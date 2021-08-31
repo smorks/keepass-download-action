@@ -2,7 +2,8 @@
   "compilerOptions": {
     "outDir": "build",
     "removeComments": true,
-    "lib": ["esnext"]
+    "lib": ["esnext"],
+    "moduleResolution": "node"
   },
   "include": ["src/**/*"]
 }

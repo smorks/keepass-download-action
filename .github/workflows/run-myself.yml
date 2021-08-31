@@ -25,7 +25,7 @@ jobs:
       - name: install, build
         run: |
           yarn
-          yarn run build
+          yarn run package
 
       - id: run
         uses: ./
