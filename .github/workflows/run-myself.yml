@@ -35,5 +35,5 @@ jobs:
       - name: expose what i did!
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.run.outputs.version }}-artifact
+          name: ${{ steps.run.outputs.filename }}-artifact
           path: ./${{ steps.run.outputs.filename }}
