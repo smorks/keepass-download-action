@@ -7,12 +7,13 @@ async function getLatestVersion(): Promise<string> {
   if (r.ok) {
     const t = await r.text();
     const re = new RegExp(
-      /https:\/\/sourceforge\.net\/projects\/keepass\/files\/KeePass%202\.x\/([\d.]+?)\/KeePass-([\d.]+?)\.zip\/download/i
+      /https:\/\/sourceforge\.net\/projects\/keepass\/files\/KeePass%202\.x\/[\d.]+?\/KeePass-([\d.]+?)\.zip\/download/i
     );
     const arr = re.exec(t);
+    console.log(arr);
     if (arr.length == 2) return arr[1];
-    return undefined;
   }
+  return undefined;
 }
 
 async function run(): Promise<void> {
@@ -32,6 +33,9 @@ async function run(): Promise<void> {
   try {
     await new Promise(resolve => {
       fetch(url).then(r => {
+        if (!r.ok) {
+          throw new Error('download failed');
+        }
         const file: WriteStream = createWriteStream(filename, {
           encoding: 'binary',
         });
