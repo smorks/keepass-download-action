@@ -9,6 +9,8 @@
   "author": "smorks",
   "devDependencies": {
     "@types/node": "^16.7.8",
+    "@types/node-fetch": "^2.5.12",
+    "node-fetch": "^2.6.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   },

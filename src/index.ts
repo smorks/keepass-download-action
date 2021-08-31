@@ -1,6 +1,6 @@
 import { getInput, setFailed, setOutput } from '@actions/core';
 import { createWriteStream, WriteStream } from 'fs';
-import { get } from 'https';
+import fetch from 'node-fetch';
 
 async function run(): Promise<void> {
   let version: string = getInput('version');
@@ -14,8 +14,7 @@ async function run(): Promise<void> {
 
   try {
     await new Promise(resolve => {
-      get(url, r => {
-        r.setEncoding('binary');
+      fetch(url).then(r => {
         const file: WriteStream = createWriteStream(filename, {
           encoding: 'binary',
         });
@@ -23,7 +22,7 @@ async function run(): Promise<void> {
           throw new Error();
         });
         file.on('finish', resolve);
-        r.pipe(file);
+        r.body.pipe(file);
       });
     });
   } catch {
