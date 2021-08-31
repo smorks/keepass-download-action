@@ -23,8 +23,9 @@ jobs:
           node-version: '14'
 
       - name: install, build
-        run: yarn
-        run: yarn run build
+        run: |
+          yarn
+          yarn run build
 
       - name: run
         uses: ./
