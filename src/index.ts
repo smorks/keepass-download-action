@@ -10,7 +10,6 @@ async function getLatestVersion(): Promise<string> {
       /https:\/\/sourceforge\.net\/projects\/keepass\/files\/KeePass%202\.x\/[\d.]+?\/KeePass-([\d.]+?)\.zip\/download/i
     );
     const arr = re.exec(t);
-    console.log(arr);
     if (arr.length == 2) return arr[1];
   }
   return undefined;
