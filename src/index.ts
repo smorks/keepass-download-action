@@ -2,11 +2,28 @@ import { getInput, setFailed, setOutput } from '@actions/core';
 import { createWriteStream, WriteStream } from 'fs';
 import fetch from 'node-fetch';
 
+async function getLatestVersion(): Promise<string> {
+  const r = await fetch('https://keepass.info/download.html');
+  if (r.ok) {
+    const t = await r.text();
+    const re = new RegExp(
+      /https:\/\/sourceforge\.net\/projects\/keepass\/files\/KeePass%202\.x\/([\d.]+?)\/KeePass-([\d.]+?)\.zip\/download/i
+    );
+    const arr = re.exec(t);
+    if (arr.length == 2) return arr[1];
+    return undefined;
+  }
+}
+
 async function run(): Promise<void> {
   let version: string = getInput('version');
 
   if (version === 'latest') {
-    version = '2.48.1';
+    version = await getLatestVersion();
+
+    if (version == undefined) {
+      return setFailed('Unable to determine latest keepass version');
+    }
   }
 
   const filename: string = `KeePass-${version}.zip`;
