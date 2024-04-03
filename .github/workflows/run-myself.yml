@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        # select some random versions i guess lol
         version: ['latest']
 
     steps:

@@ -14,5 +14,5 @@ outputs:
   version:
     description: the version downloaded
 runs:
-  using: node16
+  using: node20
   main: build/index.js
