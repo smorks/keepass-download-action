@@ -9,10 +9,8 @@
   },
   "author": "smorks",
   "devDependencies": {
-    "@types/node": "^16.7.8",
-    "@types/node-fetch": "^2.5.12",
+    "@types/node": "^20.12.3",
     "@vercel/ncc": "^0.38.1",
-    "node-fetch": "^2.6.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3"
   },

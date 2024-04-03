@@ -1,13 +1,13 @@
 import { getInput, setFailed, setOutput } from '@actions/core';
-import { createWriteStream, WriteStream } from 'fs';
-import fetch from 'node-fetch';
+import { createWriteStream } from 'fs';
+import { Readable } from 'stream';
 
 async function getLatestVersion(): Promise<string> {
   const r = await fetch('https://keepass.info/download.html');
   if (r.ok) {
     const t = await r.text();
     const re = new RegExp(
-      /https:\/\/sourceforge\.net\/projects\/keepass\/files\/KeePass%202\.x\/[\d.]+?\/KeePass-([\d.]+?)\.zip\/download/i
+      /https:\/\/sourceforge\.net\/projects\/keepass\/files\/KeePass%202\.x\/[\d.]+?\/KeePass-([\d.]+?)\.zip\/download/i,
     );
     const arr = re.exec(t);
     if (arr.length == 2) return arr[1];
@@ -35,14 +35,14 @@ async function run(): Promise<void> {
         if (!r.ok) {
           throw new Error('download failed');
         }
-        const file: WriteStream = createWriteStream(filename, {
+        const file = createWriteStream(filename, {
           encoding: 'binary',
         });
         file.on('error', () => {
           throw new Error();
         });
         file.on('finish', resolve);
-        r.body.pipe(file);
+        Readable.fromWeb(r.body).pipe(file);
       });
     });
   } catch {
