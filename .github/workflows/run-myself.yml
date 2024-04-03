@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: checkout my code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: install, build
         run: |
@@ -33,7 +33,7 @@ jobs:
           version: ${{ matrix.version }}
 
       - name: expose what i did!
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.run.outputs.filename }}-artifact
           path: ./${{ steps.run.outputs.filename }}
